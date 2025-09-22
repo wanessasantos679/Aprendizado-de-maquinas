@@ -180,7 +180,29 @@
 
   <!-- Aqui manteríamos o mesmo script JS da versão anterior -->
   <script>
-   // ... (seu script da regressão linear vai aqui, igual ao original)
+    // --- JS da regressão linear (igual ao seu código anterior) ---
+    const ctx = document.getElementById('plot').getContext('2d');
+    const consoleDiv = document.getElementById('console');
+    const predOut = document.getElementById('predOut');
+    let data = [];
+    let params = {a:0, b:0};
+
+    function log(s){ const time = new Date().toLocaleTimeString(); consoleDiv.innerText = time + ' > ' + s + '\n' + consoleDiv.innerText; }
+    function clearLog(){ consoleDiv.innerText = '' }
+    function generateData(n=50, trueA=2.5, trueB=1.0, noise=2.0){
+      data = [];
+      for(let i=0;i<n;i++){ const x = Math.random()*10; const y = trueA*x + trueB + (Math.random()*2-1)*noise; data.push({x,y}); }
+      log('Dados gerados'); draw();
+    }
+    function draw(fitLine){ const canvas = document.getElementById('plot'); const w = canvas.width; const h = canvas.height; ctx.clearRect(0,0,w,h); ctx.save(); ctx.translate(40,20); const plotW = w-80, plotH = h-60; ctx.fillStyle = 'rgba(255,255,255,0.03)'; ctx.fillRect(0,0,plotW,plotH); const xs = data.map(d=>d.x); const ys = data.map(d=>d.y); const xmin = Math.min(...xs,0); const xmax = Math.max(...xs,10); const ymin = Math.min(...ys,0); const ymax = Math.max(...ys,10); function sx(x){ return (x - xmin) / (xmax - xmin) * plotW; } function sy(y){ return plotH - (y - ymin) / (ymax - ymin) * plotH; } ctx.fillStyle = '#7dd3fc'; for(const p of data){ ctx.beginPath(); ctx.arc(sx(p.x), sy(p.y), 4,0,Math.PI*2); ctx.fill(); } if(fitLine){ const {a,b} = fitLine; ctx.strokeStyle = '#fca5a5'; ctx.lineWidth = 2; ctx.beginPath(); const x0 = xmin; const y0 = a*x0 + b; const x1 = xmax; const y1 = a*x1 + b; ctx.moveTo(sx(x0), sy(y0)); ctx.lineTo(sx(x1), sy(y1)); ctx.stroke(); } ctx.fillStyle = '#9ca3af'; ctx.font = '12px monospace'; ctx.fillText('x', plotW-10, plotH+20); ctx.fillText('y', -10, -4); ctx.restore(); }
+    function predict(x, p=params){ return p.a * x + p.b }
+    function mse(p){ const n = data.length; let s = 0; for(const d of data){ const e = (p.a*d.x + p.b) - d.y; s += e*e; } return s/n; }
+    async function train(lr=0.01, epochs=200){ if(data.length===0){ log('Sem dados'); return; } params.a = Math.random()*2 -1; params.b = Math.random()*2 -1; for(let ep=1; ep<=epochs; ep++){ let gradA = 0, gradB = 0; const n = data.length; for(const d of data){ const err = (params.a*d.x + params.b) - d.y; gradA += (2/n)*err*d.x; gradB += (2/n)*err; } params.a -= lr * gradA; params.b -= lr * gradB; if(ep % Math.max(1,Math.floor(epochs/8)) === 0 || ep===1 || ep===epochs){ const loss = mse(params); log('Época ' + ep + ' — loss=' + loss.toFixed(4)); draw({a:params.a,b:params.b}); await new Promise(r=>setTimeout(r,10)); } } log('Finalizado: a=' + params.a.toFixed(4) + ', b=' + params.b.toFixed(4)); draw({a:params.a,b:params.b}); }
+    document.getElementById('gen').addEventListener('click', ()=>{ clearLog(); generateData(60, 2.5, 1.0, 2.0); });
+    document.getElementById('train').addEventListener('click', async ()=>{ const lr = parseFloat(document.getElementById('lr').value) || 0.01; const epochs = parseInt(document.getElementById('epochs').value) || 200; await train(lr, epochs); });
+    document.getElementById('reset').addEventListener('click', ()=>{ data=[]; params={a:0,b:0}; draw(); clearLog(); log('Reset realizado.'); predOut.innerText=''; });
+    document.getElementById('predBtn').addEventListener('click', ()=>{ const x = parseFloat(document.getElementById('xpred').value); if(isNaN(x)){ predOut.innerText = 'Insira um número'; return; } const y = predict(x); predOut.innerText = 'Previsão: y = ' + y.toFixed(4); log('Predição para x=' + x + ' -> y=' + y.toFixed(4)); });
+    generateData(60,2.5,1,2);
   </script>
 </body>
 </html>
