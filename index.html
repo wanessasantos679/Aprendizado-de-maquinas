@@ -34,17 +34,87 @@
       <header>
         <div>
           <h1>Aprendizado de Máquina — Conceitos e Exemplos</h1>
-          <p class="lead">Respostas em linguagem simples + demo interativa de regressão linear (em JavaScript).</p>
+          <p class="lead">Perguntas e respostas em linguagem simples + demo interativa de regressão linear (em JavaScript). </p>
         </div>
       </header>
 
-      <div class="grid">
-        <div class="card">
-          <section class="qa">
-            <h2 class="section">1 - Diferença entre Aprendizagem por Reforço, Supervisionada e Não Supervisionada</h2>
-            <p><strong>Aprendizado Supervisionado:</strong> usa dados com rótulos, aprende entradas → saídas.</p>
-            <p><strong>Não Supervisionado:</strong> sem rótulos, busca padrões ocultos (clusters, redução de dimensionalidade).</p>
-            <p><strong>Reforço:</strong> agente que aprende por tentativa e erro, maximizando recompensas.</p>
+      <<div class="grid">
+    <div class="card">
+        <section class="qa">
+            <h2 class="section"> Diferença entre Aprendizagem por Reforço, Supervisionada e Não Supervisionada</h2>
+            
+            <!-- Seção de Aprendizagem Supervisionada -->
+            <h3>1. Aprendizagem Supervisionada</h3>
+            <p><strong>Aprendizagem Supervisionada:</strong> utiliza um conjunto de dados rotulado, ou seja, para cada entrada, há uma resposta correta associada.</p>
+            <ul>
+                <li><strong>Objetivo:</strong> Aprender uma função que mapeia entradas para saídas com base nos dados de treinamento.</li>
+                <li><strong>Exemplo de uso:</strong> Previsão de preços de casas (dado o tamanho, localização, etc., o modelo prevê o preço).</li>
+                <li><strong>Tipo de dado:</strong> Conjunto de dados com exemplos rotulados (entrada e saída).</li>
+                <li><strong>Processo:</strong> Durante o treinamento, o modelo compara suas previsões com as respostas corretas e ajusta seus parâmetros para minimizar o erro.</li>
+            </ul>
+
+            <!-- Seção de Aprendizagem Não Supervisionada -->
+            <h3>2. Aprendizagem Não Supervisionada</h3>
+            <p><strong>Aprendizagem Não Supervisionada:</strong> usa dados sem rótulos e tenta identificar padrões ou agrupamentos ocultos nos dados.</p>
+            <ul>
+                <li><strong>Objetivo:</strong> Descobrir a estrutura oculta ou agrupamentos nos dados.</li>
+                <li><strong>Exemplo de uso:</strong> Segmentação de clientes (identificar diferentes grupos de clientes com base em comportamentos de compra).</li>
+                <li><strong>Tipo de dado:</strong> Conjunto de dados sem rótulos (apenas entradas, sem saídas associadas).</li>
+                <li><strong>Processo:</strong> O modelo tenta identificar semelhanças e diferenças nos dados para agrupar ou reduzir a dimensionalidade.</li>
+            </ul>
+
+            <!-- Seção de Aprendizagem por Reforço -->
+            <h3>3. Aprendizagem por Reforço</h3>
+            <p><strong>Aprendizagem por Reforço:</strong> envolve um agente que aprende a tomar decisões em um ambiente através de tentativa e erro, maximizando recompensas acumuladas.</p>
+            <ul>
+                <li><strong>Objetivo:</strong> Maximizar uma recompensa acumulada ao longo do tempo, aprendendo qual ação tomar em cada situação.</li>
+                <li><strong>Exemplo de uso:</strong> Jogo de xadrez ou Go (onde o modelo aprende a jogar tomando decisões que o levam à vitória).</li>
+                <li><strong>Tipo de dado:</strong> Não há um conjunto de dados fixo com rótulos. O agente explora o ambiente e aprende com suas interações.</li>
+                <li><strong>Processo:</strong> O modelo toma ações baseadas em seu estado atual, observa as recompensas, e ajusta sua estratégia para maximizar a recompensa total a longo prazo.</li>
+            </ul>
+
+            <!-- Tabela Comparativa -->
+            <h3>Resumo das Diferenças</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Aprendizagem Supervisionada</th>
+                        <th>Aprendizagem Não Supervisionada</th>
+                        <th>Aprendizagem por Reforço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tipo de Dados</strong></td>
+                        <td>Dados rotulados (entrada + saída)</td>
+                        <td>Dados não rotulados (apenas entrada)</td>
+                        <td>Interações com o ambiente (ação e recompensa)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objetivo</strong></td>
+                        <td>Prever ou classificar</td>
+                        <td>Encontrar padrões ou estruturas</td>
+                        <td>Maximizar recompensas ao longo do tempo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Exemplo</strong></td>
+                        <td>Classificação de emails, Previsão de vendas</td>
+                        <td>Agrupamento de clientes, Redução de dimensionalidade</td>
+                        <td>Jogo de xadrez, Navegação de robôs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Processo de Aprendizado</strong></td>
+                        <td>Ajuste com base em erros (saídas conhecidas)</td>
+                        <td>Identificação de padrões nos dados</td>
+                        <td>Aprendizado através de tentativas e erros, recompensas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+
 
             <h2 class="section">2 - O que é um rótulo?</h2>
             <p>Resposta correta associada a cada exemplo de treinamento.</p>
@@ -105,7 +175,7 @@
   </main>
 
   <footer>
-    <p>© 2025 Wanessa Santos — Todos os direitos reservados.</p>
+    <p>© 2025 Estudante de Análise e Desenvolvimento de Sistemas: Wanessa Santos — Todos os direitos reservados.</p>
   </footer>
 
   <script>
